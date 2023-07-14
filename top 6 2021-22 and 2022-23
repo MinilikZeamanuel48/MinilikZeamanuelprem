@@ -1,0 +1,152 @@
+class Team:
+    def __init__(self, name):
+        self.name = name
+        self.points = 0
+        self.matches_played = 0
+        self.wins = 0
+        self.draws = 0
+        self.losses = 0
+        self.goals_for = 0
+        self.goals_against = 0
+
+    def update_stats(self, goals_for, goals_against, result):
+        self.matches_played += 1
+        self.goals_for += goals_for
+        self.goals_against += goals_against
+
+        if result == 'win':
+            self.wins += 1
+            self.points += 3
+        elif result == 'draw':
+            self.draws += 1
+            self.points += 1
+        elif result == 'loss':
+            self.losses += 1
+
+    def goal_difference(self):
+        return self.goals_for - self.goals_against
+
+    def __str__(self):
+        return f'{self.name:15s} | MP: {self.matches_played:2d} | W: {self.wins:2d} | D: {self.draws:2d} | L: {self.losses:2d} | GF: {self.goals_for:2d} | GA: {self.goals_against:2d} | GD: {self.goal_difference():2d} | Pts: {self.points:2d}'
+
+
+class PremierLeagueTable:
+    def __init__(self):
+        self.teams = {}
+
+    def add_team(self, team_name):
+        team = Team(team_name)
+        self.teams[team_name] = team
+
+    def update_match_result(self, home_team, away_team, home_goals, away_goals):
+        if home_goals > away_goals:
+            home_result = 'win'
+            away_result = 'loss'
+        elif home_goals < away_goals:
+            home_result = 'loss'
+            away_result = 'win'
+        else:
+            home_result = away_result = 'draw'
+
+        self.teams[home_team].update_stats(home_goals, away_goals, home_result)
+        self.teams[away_team].update_stats(away_goals, home_goals, away_result)
+
+    def print_table(self):
+        print('Premier League Table')
+        print('-' * 86)
+        print(f'{"Team":15s} |  MP  |  W  |  D  |  L  |  GF  |  GA  |  GD  |  Pts ')
+        print('-' * 86)
+
+        sorted_teams = sorted(self.teams.values(), key=lambda x: (x.points, x.goal_difference()), reverse=True)
+        for team in sorted_teams:
+            print(team)
+        print('-' * 86)
+
+
+# Example usage
+table = PremierLeagueTable()
+
+# Add the top 6 in the Premier League
+table.add_team('Manchester City')
+table.add_team('Manchester Unt')
+table.add_team('Liverpool')
+table.add_team('Chelsea')
+table.add_team('Tottenham')
+table.add_team('Arsenal')
+
+# Update match results
+
+# Manchester City home games against the top 6 in 2021/22 and 2022/23
+table.update_match_result('Manchester City', 'Manchester Unt', 6, 3)
+table.update_match_result('Manchester City', 'Liverpool', 4, 1)
+table.update_match_result('Manchester City', 'Tottenham', 4, 2)
+table.update_match_result('Manchester City', 'Chelsea', 1, 0)
+table.update_match_result('Manchester City', 'Arsenal', 4, 1)
+table.update_match_result('Manchester City', 'Manchester Unt', 4, 1)
+table.update_match_result('Manchester City', 'Liverpool', 2, 2)
+table.update_match_result('Manchester City', 'Tottenham', 2, 3)
+table.update_match_result('Manchester City', 'Chelsea', 1, 0)
+table.update_match_result('Manchester City', 'Arsenal', 5, 0)
+
+# Liverpool home games against the top 6 in 2021/22 and 2022/23
+table.update_match_result('Liverpool', 'Chelsea', 0, 0)
+table.update_match_result('Liverpool', 'Arsenal', 2, 2)
+table.update_match_result('Liverpool', 'Manchester City', 1, 0)
+table.update_match_result('Liverpool', 'Manchester Unt', 7, 0)
+table.update_match_result('Liverpool', 'Tottenham', 4, 3)
+table.update_match_result('Liverpool', 'Chelsea', 1, 1)
+table.update_match_result('Liverpool', 'Arsenal', 4, 0)
+table.update_match_result('Liverpool', 'Manchester City', 2, 2)
+table.update_match_result('Liverpool', 'Manchester Unt', 4, 0)
+table.update_match_result('Liverpool', 'Tottenham', 1, 1)
+
+# Chelsea home games against the top 6 in 2021/22 and 2022/23
+table.update_match_result('Chelsea', 'Manchester Unt', 1, 1)
+table.update_match_result('Chelsea', 'Arsenal', 0, 1)
+table.update_match_result('Chelsea', 'Liverpool', 0, 0)
+table.update_match_result('Chelsea', 'Manchester City', 0, 1)
+table.update_match_result('Chelsea', 'Tottenham', 2, 2)
+table.update_match_result('Chelsea', 'Manchester Unt', 1, 1)
+table.update_match_result('Chelsea', 'Arsenal', 2, 4)
+table.update_match_result('Chelsea', 'Liverpool', 2, 2)
+table.update_match_result('Chelsea', 'Manchester City', 0, 1)
+table.update_match_result('Chelsea', 'Tottenham', 2, 0)
+
+# Manchester Unt home games against the top 6 in 2021/22 and 2022/23
+table.update_match_result('Manchester Unt', 'Tottenham', 2, 0)
+table.update_match_result('Manchester Unt', 'Liverpool', 2, 1)
+table.update_match_result('Manchester Unt', 'Arsenal', 3, 1)
+table.update_match_result('Manchester Unt', 'Chelsea', 4, 1)
+table.update_match_result('Manchester Unt', 'Manchester City', 2, 1)
+table.update_match_result('Manchester Unt', 'Tottenham', 3, 2)
+table.update_match_result('Manchester Unt', 'Liverpool', 0, 5)
+table.update_match_result('Manchester Unt', 'Arsenal', 3, 2)
+table.update_match_result('Manchester Unt', 'Chelsea', 1, 1)
+table.update_match_result('Manchester Unt', 'Manchester City', 0, 2)
+
+# Tottenham home games against the top 6 in 2021/22 and 2022/23
+table.update_match_result('Tottenham', 'Arsenal', 0, 2)
+table.update_match_result('Tottenham', 'Manchester City', 1, 0)
+table.update_match_result('Tottenham', 'Liverpool', 1, 2)
+table.update_match_result('Tottenham', 'Chelsea', 2, 0)
+table.update_match_result('Tottenham', 'Manchester Unt', 2, 2)
+table.update_match_result('Tottenham', 'Arsenal', 3, 0)
+table.update_match_result('Tottenham', 'Manchester City', 1, 0)
+table.update_match_result('Tottenham', 'Liverpool', 2, 2)
+table.update_match_result('Tottenham', 'Chelsea', 0, 1)
+table.update_match_result('Tottenham', 'Manchester Unt', 0, 3)
+
+# Arsenal home games against the top 6 in the 2021/22 and 2022/23 seasons
+table.update_match_result('Arsenal', 'Liverpool', 3, 2)
+table.update_match_result('Arsenal', 'Chelsea', 3, 1)
+table.update_match_result('Arsenal', 'Manchester Unt', 3, 2)
+table.update_match_result('Arsenal', 'Manchester City', 1, 3)
+table.update_match_result('Arsenal', 'Tottenham', 3, 1)
+table.update_match_result('Arsenal', 'Liverpool', 0, 2)
+table.update_match_result('Arsenal', 'Chelsea', 0, 2)
+table.update_match_result('Arsenal', 'Manchester Unt', 3, 1)
+table.update_match_result('Arsenal', 'Manchester City', 1, 2)
+table.update_match_result('Arsenal', 'Tottenham', 3, 1)
+
+# Print Top 6 2021/22 and 2022/23 Premier League table
+table.print_table()
