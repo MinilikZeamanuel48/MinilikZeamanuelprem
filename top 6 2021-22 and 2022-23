@@ -150,3 +150,20 @@ table.update_match_result('Arsenal', 'Tottenham', 3, 1)
 
 # Print Top 6 2021/22 and 2022/23 Premier League table
 table.print_table()
+
+# This prints
+'''
+Premier League Table
+--------------------------------------------------------------------------------------
+Team            |  MP  |  W  |  D  |  L  |  GF  |  GA  |  GD  |  Pts 
+--------------------------------------------------------------------------------------
+Manchester City | MP: 20 | W: 13 | D:  2 | L:  5 | GF: 45 | GA: 22 | GD: 23 | Pts: 41
+Liverpool       | MP: 20 | W:  8 | D:  9 | L:  3 | GF: 45 | GA: 25 | GD: 20 | Pts: 33
+Arsenal         | MP: 20 | W:  9 | D:  1 | L: 10 | GF: 33 | GA: 43 | GD: -10 | Pts: 28
+Manchester Unt  | MP: 20 | W:  8 | D:  4 | L:  8 | GF: 34 | GA: 47 | GD: -13 | Pts: 28
+Tottenham       | MP: 20 | W:  5 | D:  4 | L: 11 | GF: 27 | GA: 38 | GD: -11 | Pts: 19
+Chelsea         | MP: 20 | W:  3 | D:  8 | L:  9 | GF: 17 | GA: 26 | GD: -9 | Pts: 17
+--------------------------------------------------------------------------------------
+
+Process finished with exit code 0
+'''
